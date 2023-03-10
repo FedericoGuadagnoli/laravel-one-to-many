@@ -27,7 +27,7 @@
             </div>
         </div>    
     </div>
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-md-6">   
             <div class="mb-3">
                 <label for="link_github" class="form-label">Link github</label>
@@ -35,12 +35,22 @@
                 <small class="text-muted">Incolla l'url del link a github</small>
             </div>
         </div>
+        <div class="col-md-6">
+            <label for="type_id" class="form-label">Tipi di progetto</label>
+            <select class="form-select bg-dark text-light" name="type_id" id="type_id">
+                <option hidden value="">Scegli una tipologia ↓</option>
+                @foreach ($types as $type)
+                    <option @if ($project->type_id == $type->id) selected @endif value="{{ $type->id }}">{{ $type->label }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
+
     <div class="row">
         <div class="col">
             <div class="mb-3">
                 <label for="content" class="form-label">Contenuto</label>
-                <textarea class="form-control bg-dark text-light" id="content" name="content" rows="30" required>{{ $project->content }}</textarea>
+                <textarea class="form-control bg-dark text-light" id="content" name="content" rows="15" required>{{ $project->content }}</textarea>
             </div>
         </div>
     </div>      
