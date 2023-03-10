@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'content', 'image', 'link_github', 'slug'];
+    protected $fillable = ['title', 'content', 'image', 'link_github', 'slug', 'type_id'];
 
     public function type()
     {
