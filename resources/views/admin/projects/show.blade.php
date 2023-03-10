@@ -8,6 +8,7 @@
         <div class="card mt-5">
           <div class="card-body text-center">
               <h1 class="card-title">Progetto {{ $project->title }}</h1>
+              <h5 class="card-title">Tipo di progetto: {{$project->type?->label}}</h5>
               <p class="card-text">{{ $project->content }}</p>
               <a href="{{ $project->link_github }}" class="btn btn-primary">Link GitHub</a>
           </div>
