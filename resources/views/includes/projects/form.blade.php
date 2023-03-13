@@ -1,20 +1,9 @@
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-<li>{{ $error }}</li>
-        @endforeach
-    </ul>    
-</div>
-@endif
-
-
 @if ($project->exists)
-<form action="{{ route('admin.projects.update', $project->id) }}" method="POST" novalidate enctype="multipart/form-data">
+<form action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
     @method('PUT')
     @csrf
     @else
-    <form action="{{ route('admin.projects.store') }}" method="POST" novalidate enctype="multipart/form-data">
+    <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 @endif
     <div class="container">
