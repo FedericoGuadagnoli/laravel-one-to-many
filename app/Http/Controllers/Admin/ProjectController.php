@@ -42,7 +42,9 @@ class ProjectController extends Controller
             'title' => 'required | string | unique:projects| min:5 | max:50',
             'image' => 'nullable',
             'content' => 'required | string',
-            'link_github' => 'required | url | unique:projects'
+            'link_github' => 'required | url | unique:projects',
+            'type_id' =>  'nullable|exists:types,id',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,svg'
         ], [
             'title.required' => 'Il titolo è obbligatorio',
             'title.unique' => "Esiste già un post con il titolo $request->title.",
@@ -50,7 +52,9 @@ class ProjectController extends Controller
             'title.max' => 'Il titolo non deve superare i 20 caratteri',
             'content.required' => 'La descrizione del progetto va inserita',
             'link_github.required' => 'Il link del progetto è obbligatorio',
-            'link_github.url' => 'Devi inserire un link valido'
+            'link_github.url' => 'Devi inserire un link valido',
+            'image.image' => 'L\'immagine deve essere un file di tipo immagine',
+            'image.mimes' => 'L\'immagine può essere solo di tipo jpeg o jpg o png o svg'
         ]);
 
         $data = $request->all();
@@ -94,7 +98,9 @@ class ProjectController extends Controller
             'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id), 'min:5', 'max:50'],
             'image' => 'nullable',
             'content' => 'required|string',
-            'link_github' => 'required|url|unique:projects'
+            'link_github' => ['required', 'url', Rule::unique('projects')->ignore($project->id)],
+            'type_id' =>  'nullable|exists:types,id',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,svg'
         ], [
             'title.required' => 'Il titolo è obbligatorio',
             'title.unique' => "Esiste già un post con il titolo $request->title.",
@@ -102,7 +108,9 @@ class ProjectController extends Controller
             'title.max' => 'Il titolo non deve superare i 20 caratteri',
             'content.required' => 'La descrizione del progetto va inserita',
             'link_github.required' => 'Il link del progetto è obbligatorio',
-            'link_github.url' => 'Devi inserire un link valido'
+            'link_github.url' => 'Devi inserire un link valido',
+            'image.image' => 'L\'immagine deve essere un file di tipo immagine',
+            'image.mimes' => 'L\'immagine può essere solo di tipo jpeg o jpg o png o svg'
         ]);
 
         $data = $request->all();
