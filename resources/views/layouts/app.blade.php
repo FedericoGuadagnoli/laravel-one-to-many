@@ -25,7 +25,8 @@
 
        @include('includes.navbar')
 
-        <main class="">
+        <main class="container">
+            @include('includes.errors-alert')
             @yield('content')
         </main>
     </div>
