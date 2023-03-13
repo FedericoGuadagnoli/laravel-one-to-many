@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Validation\Rule;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -37,6 +38,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required | string | unique:projects| min:5 | max:50',
+            'image' => 'nullable',
+            'content' => 'required | string',
+            'link_github' => 'required | url | unique:projects'
+        ], [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.unique' => "Esiste già un post con il titolo $request->title.",
+            'title.min' => 'Il titolo deve avere almeno 5 caratteri',
+            'title.max' => 'Il titolo non deve superare i 20 caratteri',
+            'content.required' => 'La descrizione del progetto va inserita',
+            'link_github.required' => 'Il link del progetto è obbligatorio',
+            'link_github.url' => 'Devi inserire un link valido'
+        ]);
+
         $data = $request->all();
         $data['slug'] = Str::slug($data['title'], '-');
         $project = new Project();
@@ -73,6 +89,22 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+
+        $request->validate([
+            'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id), 'min:5', 'max:50'],
+            'image' => 'nullable',
+            'content' => 'required|string',
+            'link_github' => 'required|url|unique:projects'
+        ], [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.unique' => "Esiste già un post con il titolo $request->title.",
+            'title.min' => 'Il titolo deve avere almeno 5 caratteri',
+            'title.max' => 'Il titolo non deve superare i 20 caratteri',
+            'content.required' => 'La descrizione del progetto va inserita',
+            'link_github.required' => 'Il link del progetto è obbligatorio',
+            'link_github.url' => 'Devi inserire un link valido'
+        ]);
+
         $data = $request->all();
         $data['slug'] = Str::slug($data['title'], '-');
         if (Arr::exists($data, 'image')) {
